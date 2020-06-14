@@ -1,38 +1,46 @@
 function onReady(){
-  const ADD_TODO_FORM = document.getElementById('addToDoForm');
-  const NEW_TODO_TEXT = document.getElementById('newToDoText');
-  const TODO_LIST = document.getElementById('toDoList');
+  let toDos = [];
+  const addToDoForm = document.getElementById('addToDoForm');
 
-  ADD_TODO_FORM.addEventListener('submit', (event) => {
+  function createNewToDo() {
+    const newToDoText = document.getElementById('newToDoText');
+    if (!newToDoText.value) { return; }
+    toDos.push({
+      title: newToDoText.value,
+      complete: false
+    });
+    newToDoText.value = '';
+
+    renderTheUI();
+  }
+
+  function renderTheUI() {
+    const toDoList = document.getElementById('toDoList');
+
+    toDoList.textContent = '';
+
+    toDos.forEach(function(toDo) {
+        const newLi = document.createElement('li');
+        const checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+
+        newLi.textContent = toDo.title;
+
+        toDoList.appendChild(newLi);
+        newLi.appendChild(checkbox);
+
+    });
+  }
+
+  addToDoForm.addEventListener('submit', event => {
     event.preventDefault();
-
-    // get the text
-   let title = NEW_TODO_TEXT.value;
-
-   // create a new li
-   let newLi = document.createElement('li');
-
-    // create a new input
-    let checkbox = document.createElement('input');
-
-    // set the input's type to checkbox
-    checkbox.type = "checkbox";
-
-    // set the title
-   newLi.textContent = title;
-   // could you do here newLi.textContent = NEW_TODO_TEXT.value; instead?
-
-   // attach the checkbox to the li
-   newLi.appendChild(checkbox);
-
-   TODO_LIST.appendChild(newLi);
-
-   //empty the input
-   NEW_TODO_TEXT.value = '';
+    createNewToDo();
   });
+
 }
 
+
+
 window.onload = function() {
-  alert("The window has loaded!");
   onReady();
 };
