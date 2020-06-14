@@ -1,0 +1,16 @@
+
+h1 {
+  color: white;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  margin-right: 10px;
+}
+
+main {
+  padding-top: 40px;
+}
